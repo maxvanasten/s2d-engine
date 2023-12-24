@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "copy_engine_files_to_public": "cp -r ./s2d_engine ./public/demo/",
-    "generate_documentation": "jsdoc ./s2d_engine --destination ./public/documentation",
+    "generate_documentation": "jsdoc ./s2d_engine -r --destination ./public/documentation",
     "dev": "npm run copy_engine_files_to_public && npm run generate_documentation && nodemon server.js"
   },
   "repository": {
