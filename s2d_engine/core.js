@@ -1,18 +1,29 @@
 import { Vector2D, Vector4D } from "./utils/vectors.js";
 import { GameObject } from "./utils/game_object.js";
 
+// Internal objects
+import input_manager from "./internal_objects/input_manager.js";
 
 /**
  * @class Core
  * @description Core class for the engine.
  * 
- * @property {object} _main_canvas - Main canvas object.
+ * @property { Object } _main_canvas - Main canvas object.
  * @property { HTMLCanvasElement } _main_canvas.element - Main canvas element.
  * @property { CanvasRenderingContext2D } _main_canvas.context - Main canvas context.
  * @property { boolean } _main_canvas.fullscreen - Main canvas fullscreen.
  * 
- * @property {object[]} _objects - Objects array.
  * @property {GameObject[]} _objects - Objects array.
+ * @property {string} _player_object_identifier - Identifier of the player object, is used for updating the camera position and determining wether or not objects will be updated and/or rendered.
+ * 
+ * @property {Vector2D} _camera_position - Camera position.
+ * @property {Vector2D} _camera_offset - Camera offset, used for manipulating the camera
+ * @property {Vector2D} _canvas_center - Center of the canvas.
+ * 
+ * @property {Object[]} _update_queue - Update queue.
+ * @property {Object[]} _render_queue - Render queue.
+ * 
+ * @property {boolean} _out_of_focus - Whether or not the game is out of focus.
  */
 export class Core {
   constructor() {
@@ -21,16 +32,32 @@ export class Core {
       context: null,
       fullscreen: false
     };
+
+    this.flags = {
+      RENDER_COLLISION_BOXES: true
+    }
+
     this._objects = [];
+    this._player_object_identifier = null;
+
+    this._camera_position = Vector2D.ZERO();
+    this._camera_offset = Vector2D.ZERO();
+    this._canvas_center = Vector2D.ZERO();
+
+    this._update_queue = [];
+    this._render_queue = [];
+
+    this._out_of_focus = false;
   }
 
   /**
    * @method _import_game
    * @memberof Core
-   * @description Imports gamefiles.
+   * @description Imports objects, input events and ui connections from game.
    * @param {object} game 
    */
-  _import_game = async (game) => {
+  _import_game = (game) => {
+    // Check if game is valid
     if (!game.objects) {
       console.error("[s2d-engine: _import_game] Game object is missing 'objects' property.");
     }
@@ -152,38 +179,108 @@ export class Core {
   }
 
   /**
+   * @method _update_camera_position
+   * @description Updates the camera position to the player object position.
+   * @memberof Core
+   */
+  _update_camera_position = () => {
+    const player_object = this._get_object_by_identifier(this._player_object_identifier);
+    this._camera_position = player_object.global_position.subtract(this._canvas_center);
+  }
+
+  /**
+   * @method _global_to_screen
+   * @description Converts a global position to a screen position for rendering.
+   * @memberof Core
+   * @param {Vector2D} global_position 
+   * @returns {Vector2D} screen_position
+   */
+  _global_to_screen = (global_position) => {
+    const screen_position = global_position.subtract(this._camera_position);
+    return screen_position;
+  }
+
+  /**
    * @method _loop
    * @memberof Core
    * @description Main loop of the engine. Is in charge of selecting objects to be updated and/or rendered
    */
   _loop = () => {
+    // Calculate delta time
     this._last_time = this._current_time || Date.now();
     this._current_time = Date.now();
-    this._delta_time = this._current_time - this._last_time;
+    this._delta_time = (this._current_time - this._last_time) / 1000;
 
-    // Select objects for rendering and updating
-    this._update_queue = [];
-    this._render_queue = [];
-    this._objects.map((object, index) => {
-      if (object.always_update) {
-        this._add_to_update_queue(object.update);
-      }
-      if (object.always_render) {
-        this._add_to_render_queue(object.render);
-      }
+    // Only run if game is in focus
+    if (!this._out_of_focus) {
+      // Clear canvas
+      this._main_canvas.context.clearRect(0, 0, this._main_canvas.element.width, this._main_canvas.element.height);
 
-      // If object is close enough, also add it to the render and update queue
-      if (object.global_position && !object.always_update && !object.always_render) {
-        const dist = object.global_position.distance_to(this._player_object.global_position);
-        if (dist < 1000) {
-          this._add_to_update_queue(object.update);
-          this._add_to_render_queue(object.render);
+      // Clear update and render queues
+      this._update_queue = [];
+      this._render_queue = [];
+
+      // Resize canvas if neccessary, also updates _canvas_center
+      if (this._main_canvas.fullscreen) {
+        if (this._main_canvas.element.width !== window.innerWidth) {
+          this._main_canvas.element.width = window.innerWidth;
+          this._canvas_center.x = window.innerWidth / 2;
+        }
+        if (this._main_canvas.element.height !== window.innerHeight) {
+          this._main_canvas.element.height = window.innerHeight;
+          this._canvas_center.y = window.innerHeight / 2;
         }
       }
-    });
 
-    this._update_objects(this._delta_time);
-    this._render_objects();
+      // Select objects for rendering and updating
+      this._objects.map((object, index) => {
+        // Keep track of wether or not the object has been updated/rendered
+        let update_object = false;
+        let render_object = false;
+        // Check for always_update and always_render flags on object
+        if (object.flags.ALWAYS_UPDATE) update_object = true;
+        if (object.flags.ALWAYS_RENDER) render_object = true;
+        // If object is close enough, render/update it
+        if (object.global_position) {
+          const player_object = this._get_object_by_identifier(this._player_object_identifier);
+          const dist = object.global_position.distance(player_object.global_position);
+          if (dist < 1000) {
+            update_object = true;
+            render_object = true;
+          }
+        }
+        // Add object to update/render queue
+        if (update_object) this._add_to_update_queue(object, object.update);
+        if (render_object) this._add_to_render_queue(object, object.render);
+      });
+
+      // Update camera position
+      // this._update_camera_position();
+
+      // Update and render objects
+      this._update_objects(this._delta_time);
+      this._render_objects();
+    }
+
+    // Request next frame
+    requestAnimationFrame(this._loop);
+  }
+
+  /**
+   * @method _get_object_by_identifier
+   * @description Returns an object by its identifier.
+   * @memberof Core
+   * @param {string} identifier 
+   * @returns {game_object} object
+   */
+  _get_object_by_identifier = (identifier) => {
+    let object = null;
+    this._objects.map((object_, index) => {
+      if (object_.identifier === identifier) {
+        object = object_;
+      }
+    })
+    return object;
   }
 
   /**
@@ -192,6 +289,14 @@ export class Core {
    * @description Starts the game loop.
    */
   _start_game = () => {
+    // Add event listeners for window focus
+    window.addEventListener("blur", () => {
+      this._out_of_focus = true;
+    })
+    window.addEventListener("focus", () => {
+      this._out_of_focus = false;
+    })
+
     requestAnimationFrame(this._loop);
   }
 
@@ -199,20 +304,30 @@ export class Core {
    * @method _add_to_update_queue
    * @memberof Core
    * @description Adds an object to the update queue.
-   * @param {game_object} object 
+   * @param {GameObject} object the object to add to the update queue
+   * @param {function} update_function The function to execute when object is updated
    */
-  _add_to_update_queue = (object) => {
-    if (object.update) this._update_queue.push(object.update);
+  _add_to_update_queue = (object, update_function) => {
+    const update_item = {
+      self: object,
+      update_function: update_function
+    }
+    this._update_queue.push(update_item);
   }
 
   /**
    * @method _add_to_render_queue
    * @memberof Core
    * @description Adds an object to the render queue.
-   * @param {game_object} object
+   * @param {GameObject} object the object to add to the render queue
+   * @param {function} render_function The function to execute when object is rendered
   */
-  _add_to_render_queue = (object) => {
-    if (object.render) this._render_queue.push(object.render);
+  _add_to_render_queue = (object, render_function) => {
+    const render_item = {
+      self: object,
+      render_function: render_function
+    }
+    this._render_queue.push(render_item);
   }
 
   /**
@@ -222,9 +337,26 @@ export class Core {
    * @param {number} delta 
    */
   _update_objects = (delta) => {
+    // Keep track of the amount of updated objects this frame
     this._updated_objects_count = 0;
-    this._update_queue.map((update_function, index) => {
-      update_function(delta);
+
+    // Update objects
+    this._update_queue.map((update_item, index) => {
+      // If object hasn't been initialized, initialize it
+      if (!update_item.self._is_initialized) {
+        update_item.self.init(update_item.self);
+        update_item.self._is_initialized = true;
+      }
+
+      // Update object
+      update_item.update_function(update_item.self, delta);
+
+      // If object is player object, update camera position
+      if (update_item.self.flags.IS_PLAYER) {
+        this._update_camera_position();
+      }
+
+      // Keep track of the amount of updated objects this frame
       this._updated_objects_count++;
     })
   }
@@ -235,17 +367,38 @@ export class Core {
    * @description Renders all objects in the render queue.
    */
   _render_objects = () => {
+    // Keep track of the amount of rendered objects this frame
     this._rendered_objects_count = 0;
-    this._render_queue.map((render_function, index) => {
-      this._render_objects_count++;
-      render_function(this._main_canvas.context);
+
+    // Sort render queue by render layer
+    this._render_queue.sort((a, b) => {
+      return a.self.render_layer - b.self.render_layer;
     })
-  }
 
-}
+    // Render objects
+    this._render_queue.map((render_item, index) => {
+      // Calculate screen position
+      const screen_position = this._global_to_screen(render_item.self.global_position).floor();
 
+      // Check if object uses sprite and if so, render sprite
+      if (render_item.self.flags.USE_SPRITE && render_item.self.sprite.ready) {
+        const sprite = render_item.self.sprite;
+        const sprite_position = screen_position.subtract(Vector2D.from_x_and_y(sprite.render_width / 2, sprite.render_height / 2));
+        this._main_canvas.context.drawImage(sprite.image, sprite_position.x, sprite_position.y, sprite.render_width, sprite.render_height);
+      }
 
+      // Run custom render function
+      render_item.render_function(render_item.self, this._main_canvas.context, screen_position);
 
+      // Render collision box if neccessary
+      if (this.flags.RENDER_COLLISION_BOXES && render_item.self.collision_box) {
+        const collision_box = render_item.self.collision_box;
+        this._main_canvas.context.fillStyle = "rgba(0, 0, 255, 0.3)";
+        this._main_canvas.context.fillRect(screen_position.x + collision_box.x, screen_position.y + collision_box.y, collision_box.width, collision_box.height)
+      }
 
+      // Keep track of the amount of rendered objects this frame
+      this._rendered_objects_count++;
+    })
   }
 }
