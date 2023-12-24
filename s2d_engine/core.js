@@ -35,6 +35,22 @@ export class Core {
       console.error("[s2d-engine: _import_game] Game object is missing 'objects' property.");
     }
 
+    // Import internal objects
+    if (game.internal_objects) {
+      game.internal_objects.map((internal_object_name) => {
+        switch (internal_object_name) {
+          case "input_manager":
+            input_manager.init(input_manager);
+            input_manager._is_initialized = true;
+            this._objects.push(input_manager);
+            break;
+          default:
+            console.warn(`[s2d-engine: _import_game] Internal object '${internal_object_name}' not found.`);
+            break;
+        }
+      })
+    }
+
     // Import objects
     game.objects.map((raw_object, index) => {
       const parsed_object = this._parse_object(raw_object);
