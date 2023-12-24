@@ -1,7 +1,9 @@
+#!/usr/bin/env node
+
 import Express from 'express';
 
 const app = Express();
-const port = 3000;
+const port = process.env.PORT;
 
 app.use(Express.static('public'));
 
