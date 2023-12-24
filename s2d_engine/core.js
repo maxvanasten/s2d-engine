@@ -3,6 +3,7 @@ import { GameObject } from "./utils/game_object.js";
 
 // Internal objects
 import input_manager from "./internal_objects/input_manager.js";
+import tilemap_manager from "./internal_objects/tilemap_manager.js";
 
 /**
  * @class Core
@@ -71,6 +72,11 @@ export class Core {
             input_manager._is_initialized = true;
             this._objects.push(input_manager);
             break;
+          case "tilemap_manager":
+            tilemap_manager.init(tilemap_manager, game.tilemap);
+            tilemap_manager._is_initialized = true;
+            this._objects.push(tilemap_manager);
+            break;
           default:
             console.warn(`[s2d-engine: _import_game] Internal object '${internal_object_name}' not found.`);
             break;
@@ -83,8 +89,6 @@ export class Core {
       const parsed_object = this._parse_object(raw_object);
       this._objects.push(parsed_object);
     })
-    // Import input events
-    // Import ui connections
   }
 
   /**
@@ -213,6 +217,15 @@ export class Core {
 
     // Only run if game is in focus
     if (!this._out_of_focus) {
+      // If tilemap is being used, dont run game until tilemap is loaded
+      const tilemap_manager = this._get_object_by_identifier("INTERNAL_tilemap_manager");
+      if (tilemap_manager) {
+        if (!tilemap_manager.is_loaded(tilemap_manager)) {
+          requestAnimationFrame(this._loop);
+          return;
+        }
+      }
+
       // Clear canvas
       this._main_canvas.context.clearRect(0, 0, this._main_canvas.element.width, this._main_canvas.element.height);
 
