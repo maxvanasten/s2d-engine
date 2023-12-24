@@ -2,7 +2,8 @@ import { Vector2D } from "../s2d_engine/utils/vectors.js";
 
 const game = {
   internal_objects: [
-    "input_manager"
+    "input_manager",
+    "tilemap_manager"
   ],
 
   objects: [
@@ -87,7 +88,53 @@ const game = {
         // context.fillRect(position.x - self.width / 2, position.y - self.height / 2, self.width, self.height);
       },
     }
-  ]
+  ],
+
+  tilemap: {
+    map_path: "game/assets/maps/map_2.svg",
+
+    map_width: 64,
+    map_height: 64,
+    map_scale: 4,
+
+    tile_width: 16,
+    tile_height: 16,
+
+    tilesets: [
+      {
+        identifier: "soil",
+        map_color: {
+          r: 0,
+          g: 255,
+          b: 0,
+          a: 255
+        },
+        tileset_path: "game/assets/tilesets/soil.svg",
+        tile_width: 16,
+        tile_height: 16,
+        tileset_width: 48,
+        tileset_height: 16,
+        tileset_columns: 3,
+        tileset_rows: 1
+      },
+      {
+        identifier: "grass",
+        map_color: {
+          r: 255,
+          g: 0,
+          b: 0,
+          a: 255
+        },
+        tileset_path: "game/assets/tilesets/grass.svg",
+        tile_width: 16,
+        tile_height: 16,
+        tileset_width: 48,
+        tileset_height: 16,
+        tileset_columns: 3,
+        tileset_rows: 1
+      }
+    ]
+  },
 }
 
 export default game;
