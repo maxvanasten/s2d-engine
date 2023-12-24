@@ -1,4 +1,6 @@
 import { Vector2D, Vector4D } from "./utils/vectors.js";
+import { GameObject } from "./utils/game_object.js";
+
 
 /**
  * @class Core
@@ -10,6 +12,7 @@ import { Vector2D, Vector4D } from "./utils/vectors.js";
  * @property { boolean } _main_canvas.fullscreen - Main canvas fullscreen.
  * 
  * @property {object[]} _objects - Objects array.
+ * @property {GameObject[]} _objects - Objects array.
  */
 export class Core {
   constructor() {
@@ -33,11 +36,88 @@ export class Core {
     }
 
     // Import objects
-    game.objects.map((object, index) => {
-      this._objects.push(object);
+    game.objects.map((raw_object, index) => {
+      const parsed_object = this._parse_object(raw_object);
+      this._objects.push(parsed_object);
     })
     // Import input events
     // Import ui connections
+  }
+
+  /**
+   * @method _parse_object
+   * @description Parses a raw object into a game object.
+   * @memberof Core
+   * @param {object} raw_object 
+   * @returns {GameObject} parsed_object 
+   */
+  _parse_object = (raw_object) => {
+    // Create new game object
+    const parsed_object = new GameObject(raw_object.identifier);
+
+    // Parse flags
+    if (raw_object.flags) {
+      raw_object.flags.forEach((flag) => {
+        // Set flags
+        parsed_object.flags[flag] = true;
+        // Set player object identifier
+        if (flag == "IS_PLAYER") this._player_object_identifier = raw_object.identifier;
+      })
+    }
+
+    // Parse sprite
+    if (raw_object.sprite) {
+      parsed_object.flags.USE_SPRITE = true;
+      parsed_object.sprite = {
+        image: new Image(),
+        source_width: raw_object.sprite.width,
+        source_height: raw_object.sprite.height,
+        render_width: raw_object.sprite.render_width || raw_object.sprite.width,
+        render_height: raw_object.sprite.render_height || raw_object.sprite.height,
+      }
+      parsed_object.sprite.image.src = raw_object.sprite.image_path;
+
+      parsed_object.sprite.image.onload = () => {
+        parsed_object.sprite.ready = true;
+      }
+    }
+
+    // Parse collision box
+    if (raw_object.collision_box) {
+      parsed_object.collision_box = Vector4D.from_x_and_y_and_width_and_height(raw_object.collision_box.x, raw_object.
+        collision_box.y, raw_object.collision_box.width, raw_object.collision_box.height);
+    }
+
+    // Parse global position and bounding box
+    parsed_object.global_position = Vector2D.from_x_and_y(raw_object.global_position.x, raw_object.global_position.y);
+    parsed_object.bounding_box = Vector4D.from_x_and_y_and_width_and_height(raw_object.bounding_box.x, raw_object.
+      bounding_box.y, raw_object.bounding_box.width, raw_object.bounding_box.height);
+
+    // Parse render layer
+    if (raw_object.render_layer) parsed_object.render_layer = raw_object.render_layer;
+
+    // Parse init, update and render functions
+    if (raw_object.init) parsed_object.init = raw_object.init;
+    if (raw_object.update) parsed_object.update = raw_object.update;
+    if (raw_object.render) parsed_object.render = raw_object.render;
+
+    // Parse actions
+    if (raw_object.actions) {
+      const input_manager = this._get_object_by_identifier("INTERNAL_input_manager");
+      if (!input_manager) {
+        console.warn("[s2d-engine: _parse_object] Input manager not found, but actions have been specified.");
+      }
+      raw_object.actions.forEach((action) => {
+        const action_object = {
+          self: parsed_object,
+          key: action.key,
+          while_key_down: action.while_key_down
+        }
+        input_manager.actions.push(action_object);
+      })
+    }
+
+    return parsed_object
   }
 
   /**
@@ -148,24 +228,8 @@ export class Core {
 
 }
 
-/**
- * @method create_empty_object
- * @memberof Core
- * @description Creates an empty object.
- * @returns {game_object} empty_object
- */
-export function create_empty_object() {
-  return {
-    identifier: "empty_object",
 
-    always_update: false,
-    always_render: false,
 
-    global_position: Vector2D.ZERO,
-    bounding_box: Vector4D.ZERO,
 
-    init: (self) => { },
-    update: (self, delta) => { },
-    render: (self, context, position) => { }
   }
 }
