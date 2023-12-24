@@ -1,0 +1,29 @@
+{
+  "name": "s2d-engine",
+  "version": "0.0.1",
+  "description": "Simple 2D game engine",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "copy_engine_files_to_public": "cp -r ./s2d_engine ./public/demo/",
+    "generate_documentation": "jsdoc ./s2d_engine --destination ./public/documentation",
+    "dev": "npm run copy_engine_files_to_public && npm run generate_documentation && nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxvanasten/s2d-engine.git"
+  },
+  "author": "Max van Asten",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxvanasten/s2d-engine/issues"
+  },
+  "homepage": "https://github.com/maxvanasten/s2d-engine#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jsdoc": "^4.0.2",
+    "nodemon": "^3.0.2"
+  }
+}
