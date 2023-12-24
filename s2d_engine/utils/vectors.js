@@ -17,7 +17,9 @@ export class Vector2D {
    * @param {Vector2D} vector2d 
    */
   add = (vector2d) => {
-    return new Vector2D(this.x + vector2d.x, this.y + vector2d.y);
+    const a = Vector2D.copy(this);
+    const b = Vector2D.copy(vector2d);
+    return Vector2D.from_x_and_y(a.x + b.x, a.y + b.y);
   }
 
   /**
@@ -28,7 +30,9 @@ export class Vector2D {
    * @returns {Vector2D} vector2d
    */
   subtract = (vector2d) => {
-    return new Vector2D(this.x - vector2d.x, this.y - vector2d.y);
+    const a = Vector2D.copy(this);
+    const b = Vector2D.copy(vector2d);
+    return Vector2D.from_x_and_y(a.x - b.x, a.y - b.y);
   }
 
   /**
@@ -39,7 +43,13 @@ export class Vector2D {
    * @returns {Vector2D} vector2d
    */
   multiply = (vector2d) => {
-    return new Vector2D(this.x * vector2d.x, this.y * vector2d.y);
+    const a = Vector2D.copy(this);
+    const b = Vector2D.copy(vector2d);
+    return Vector2D.from_x_and_y(a.x * b.x, a.y * b.y);
+  }
+
+  scale = (scalar) => {
+    return Vector2D.from_x_and_y(this.x * scalar, this.y * scalar);
   }
 
   /**
@@ -49,8 +59,10 @@ export class Vector2D {
    * @param {Vector2D} vector2d
    * @returns {Vector2D} vector2d
    */
-  divide = (vector2d) => {
-    return new Vector2D(this.x / vector2d.x, this.y / vector2d.y);
+  divide = (number) => {
+    const a = Vector2D.copy(this);
+    if (!number) return Vector2D.ZERO();
+    return Vector2D.from_x_and_y(a.x / number, a.y / number);
   }
 
   /**
@@ -70,7 +82,7 @@ export class Vector2D {
    * @returns {Vector2D} vector2d
    */
   normalize = () => {
-    return new Vector2D(this.x / this.magnitude(), this.y / this.magnitude());
+    return this.divide(this.magnitude());
   }
 
   /**
@@ -88,12 +100,35 @@ export class Vector2D {
   }
 
   /**
+   * @method floor
+   * @memberof Vector2D
+   * @description Floors the components of a vector.
+   * @returns {Vector2D} vector2d
+   */
+  floor = () => {
+    return new Vector2D(Math.floor(this.x), Math.floor(this.y));
+  }
+
+  /**
+   * @method distance
+   * @memberof Vector2D
+   * @description Calculates the distance between two vectors.
+   * @param {Vector2D} vector2d
+   * @returns {number} distance
+   */
+  distance = (vector2d) => {
+    const a = Vector2D.copy(this);
+    const b = Vector2D.copy(vector2d);
+    return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
+  }
+
+  /**
    * @static ZERO
    * @memberof Vector2D
    * @description A zero vector.
    * @returns {Vector2D} vector2d
    */
-  static ZERO = new Vector2D(0, 0);
+  static ZERO = () => new Vector2D(0, 0);
 
   /**
    * @static LEFT
@@ -101,7 +136,7 @@ export class Vector2D {
    * @description A left vector.
    * @returns {Vector2D} vector2d
    */
-  static LEFT = new Vector2D(-1, 0);
+  static LEFT = () => new Vector2D(-1, 0);
 
   /**
    * @static RIGHT
@@ -109,7 +144,7 @@ export class Vector2D {
    * @description A right vector.
    * @returns {Vector2D} vector2d
    */
-  static RIGHT = new Vector2D(1, 0);
+  static RIGHT = () => new Vector2D(1, 0);
 
   /**
    * @static UP
@@ -117,7 +152,7 @@ export class Vector2D {
    * @description An up vector.
    * @returns {Vector2D} vector2d
    */
-  static UP = new Vector2D(0, -1);
+  static UP = () => new Vector2D(0, -1);
 
   /**
    * @static DOWN
@@ -125,7 +160,7 @@ export class Vector2D {
    * @description A down vector.
    * @returns {Vector2D} vector2d
    */
-  static DOWN = new Vector2D(0, 1);
+  static DOWN = () => new Vector2D(0, 1);
 
   /**
    * @static @method from_x_and_y
@@ -137,6 +172,10 @@ export class Vector2D {
    */
   static from_x_and_y = (x, y) => {
     return new Vector2D(x, y);
+  }
+
+  static copy = (vector2d) => {
+    return new Vector2D(vector2d.x, vector2d.y);
   }
 }
 
@@ -157,7 +196,9 @@ export class Vector4D {
     this.height = height;
   }
 
-  static ZERO = new Vector4D(0, 0, 0, 0);
+  static ZERO = () => {
+    return new Vector4D(0, 0, 0, 0);
+  }
 
   /**
    * @method from_vector2d
@@ -196,6 +237,20 @@ export class Vector4D {
   }
 
   /**
+   * @method from_x_and_y_and_width_and_height
+   * @memberof Vector4D
+   * @description Creates a 4D vector from x, y, width and height.
+   * @param {number} x
+   * @param {number} y
+   * @param {number} width
+   * @param {number} height
+   * @returns {Vector4D} vector4d
+   */
+  static from_x_and_y_and_width_and_height = (x, y, width, height) => {
+    return new Vector4D(x, y, width, height);
+  }
+
+  /**
    * @method from_width_and_height
    * @memberof Vector4D
    * @description Creates a 4D vector from width and height.
@@ -216,5 +271,9 @@ export class Vector4D {
    */
   static from_size = (size) => {
     return new Vector4D(0, 0, size.x, size.y);
+  }
+
+  static copy = (vector4d) => {
+    return new Vector4D(vector4d.x, vector4d.y, vector4d.width, vector4d.height);
   }
 }
