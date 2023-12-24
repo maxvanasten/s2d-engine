@@ -2,7 +2,9 @@
 
 If you have any feature requests, advice, feedback, or problems, please visit the GitHub repository.
 
-**GitHub Repository:** [s2d-engine](https://github.com/maxvanasten/s2d-engine)
+| Website                                 | GitHub Repository                                        |
+| --------------------------------------- | -------------------------------------------------------- |
+| [s2d-engine.com](http://s2d-engine.com) | [s2d-engine](https://github.com/maxvanasten/s2d-engine*) |
 
 s2d_engine is a simple 2D game engine designed for creating sprite-based games with ease and efficiency. Whether you're a game developer or an artist, this engine empowers you to quickly bring your 2D, top-down game ideas to life.
 
