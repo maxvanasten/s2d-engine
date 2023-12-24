@@ -10,10 +10,10 @@ With s2d_engine, you can import your game from a game file that encompasses ever
 
 Get started with s2d_engine today and unlock the potential to create captivating and immersive 2D games!
 
-| Features                          | Progress         | Todo                                  |
-| --------------------------------- | ---------------- | ------------------------------------- |
-| GameObject updating and rendering | DONE             |                                       |
-| Rendering sprites                 | DONE             |                                       |
-| Collision detection               | NOT STARTED      | Design, Implement                     |
-| User Interface system             | NOT STARTED      | Design, Implement                     |
-| Tilemaps                          | NOT YET MIGRATED | Migrate from JSGE (prototype project) |
+| Features                          | Progress    | Todo                                           |
+| --------------------------------- | ----------- | ---------------------------------------------- |
+| GameObject updating and rendering | DONE        |                                                |
+| Rendering sprites                 | DONE        |                                                |
+| Collision detection               | NOT STARTED | Design, Implement                              |
+| User Interface system             | NOT STARTED | Design, Implement                              |
+| Tilemaps                          | DONE        | Clean up some unneeded variables and workflows |
