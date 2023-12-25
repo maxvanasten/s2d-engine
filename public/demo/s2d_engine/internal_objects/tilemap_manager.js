@@ -54,12 +54,50 @@ tilemap_manager.is_loaded = (self) => {
   return false;
 }
 
-tilemap_manager.init = (self, raw_tilemap) => {
+tilemap_manager.init = (core, self, raw_tilemap) => {
   // Parse tilemap
   self.tilemap = Tilemap.from_raw(raw_tilemap);
 }
 
-tilemap_manager.render = (self, context, position) => {
+tilemap_manager.get_tiles = (self, identifier) => {
+  if (!self.ready) return false;
+
+  let tiles = [];
+  self.map.forEach((map_tile) => {
+    if (map_tile.tileset.identifier == identifier) {
+      const tile = {
+        global_position: {
+          x: map_tile.x * self.tilemap.tile_width * self.tilemap.scale,
+          y: map_tile.y * self.tilemap.tile_height * self.tilemap.scale
+        },
+      }
+      tiles.push(tile);
+    }
+  })
+
+  return tiles;
+}
+
+tilemap_manager.tile_identifier_to_global_position = (self, tile_identifier) => {
+  if (!self.ready) return false;
+  console.log(tile_identifier);
+
+  let tile = false;
+  self.map.forEach((map_tile) => {
+    if (map_tile.tileset.identifier === tile_identifier) {
+      tile = map_tile;
+    }
+  })
+
+  if (!tile) return false;
+
+  return {
+    x: tile.x * self.tilemap.tile_width * self.tilemap.scale,
+    y: tile.y * self.tilemap.tile_height * self.tilemap.scale
+  }
+}
+
+tilemap_manager.render = (core, self, context, position) => {
   if (self.is_loaded(self)) {
     context.drawImage(self.rendered_map_image, position.x, position.y);
   }

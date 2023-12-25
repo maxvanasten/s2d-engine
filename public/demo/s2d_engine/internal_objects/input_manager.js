@@ -10,7 +10,7 @@ input_manager.is_key_down = (self, key) => {
   return self.keymap[key];
 }
 
-input_manager.init = (self) => {
+input_manager.init = (core, self) => {
   self.keymap = {};
   self.actions = [];
   // Handle game losing focus
@@ -30,10 +30,10 @@ input_manager.init = (self) => {
 }
 
 // Loop over all actions and check if the key is down, if it is, call the actions while_key_down function
-input_manager.update = (self, delta) => {
+input_manager.update = (core, self, delta) => {
   self.actions.forEach((action) => {
     if (self.is_key_down(self, action.key)) {
-      action.while_key_down(action.self);
+      action.while_key_down(core, action.self);
     }
   })
 }

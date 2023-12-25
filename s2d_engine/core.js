@@ -68,12 +68,12 @@ export class Core {
       game.internal_objects.map((internal_object_name) => {
         switch (internal_object_name) {
           case "input_manager":
-            input_manager.init(input_manager);
+            input_manager.init(this, input_manager);
             input_manager._is_initialized = true;
             this._objects.push(input_manager);
             break;
           case "tilemap_manager":
-            tilemap_manager.init(tilemap_manager, game.tilemap);
+            tilemap_manager.init(this, tilemap_manager, game.tilemap);
             tilemap_manager._is_initialized = true;
             this._objects.push(tilemap_manager);
             break;
@@ -86,9 +86,28 @@ export class Core {
 
     // Import objects
     game.objects.map((raw_object, index) => {
-      const parsed_object = this._parse_object(raw_object);
-      this._objects.push(parsed_object);
+      this._spawn_object(raw_object);
     })
+  }
+
+  /**
+   * @method _spawn_object
+   * @description Spawns a game object.
+   * @memberof Core
+   * @param {object} raw_object
+   */
+  _spawn_object = (raw_object) => {
+    const parsed_object = this._parse_object(raw_object);
+    this._objects.push(parsed_object);
+  }
+
+  _destroy_object = (identifier) => {
+    const object = this._get_object_by_identifier(identifier);
+    if (!object) {
+      console.warn(`[s2d-engine: _destroy_object] Object with identifier '${identifier}' not found.`);
+    } else {
+      this._objects.splice(this._objects.indexOf(object), 1);
+    }
   }
 
   /**
@@ -135,10 +154,17 @@ export class Core {
         collision_box.y, raw_object.collision_box.width, raw_object.collision_box.height);
     }
 
+    // Parse group
+    if (raw_object.group) parsed_object.group = raw_object.group;
+
     // Parse global position and bounding box
-    parsed_object.global_position = Vector2D.from_x_and_y(raw_object.global_position.x, raw_object.global_position.y);
-    parsed_object.bounding_box = Vector4D.from_x_and_y_and_width_and_height(raw_object.bounding_box.x, raw_object.
-      bounding_box.y, raw_object.bounding_box.width, raw_object.bounding_box.height);
+    parsed_object.global_position = Vector2D.ZERO();
+    if (raw_object.global_position) parsed_object.global_position = Vector2D.from_x_and_y(raw_object.global_position.x, raw_object.global_position.y);
+    // parsed_object.bounding_box = Vector4D.from_x_and_y_and_width_and_height(raw_object.bounding_box.x, raw_object.
+    // bounding_box.y, raw_object.bounding_box.width, raw_object.bounding_box.height);
+
+    // Parse spawn_tile
+    if (raw_object.spawn_tile) parsed_object.spawn_tile = raw_object.spawn_tile;
 
     // Parse render layer
     if (raw_object.render_layer) parsed_object.render_layer = raw_object.render_layer;
@@ -296,6 +322,26 @@ export class Core {
     return object;
   }
 
+  _get_objects_by_identifier = (identifier) => {
+    let objects = [];
+    this._objects.map((object, index) => {
+      if (object.identifier === identifier) {
+        objects.push(object);
+      }
+    })
+    return objects;
+  }
+
+  _get_objects_by_group = (group) => {
+    let objects = [];
+    this._objects.map((object, index) => {
+      if (object.group === group) {
+        objects.push(object);
+      }
+    })
+    return objects;
+  }
+
   /**
    * @method _start_game
    * @memberof Core
@@ -357,12 +403,30 @@ export class Core {
     this._update_queue.map((update_item, index) => {
       // If object hasn't been initialized, initialize it
       if (!update_item.self._is_initialized) {
-        update_item.self.init(update_item.self);
+        update_item.self.init(this, update_item.self);
         update_item.self._is_initialized = true;
       }
 
+      // Check if object has a spawn tile and if so, handle it
+      if (update_item.self.spawn_tile && !update_item.self.spawned) {
+        const tilemap_manager = this._get_object_by_identifier("INTERNAL_tilemap_manager");
+        const tiles = tilemap_manager.get_tiles(tilemap_manager, update_item.self.spawn_tile);
+        let spawn_position = {
+          x: 0,
+          y: 0
+        }
+        if (!tiles) {
+          console.warn(`[s2d-engine: _update_objects] Spawn tile '${update_item.self.spawn_tile}' not found!`);
+        } else {
+          const tile = tiles[Math.floor(Math.random() * tiles.length)];
+          spawn_position = tile.global_position;
+        }
+        update_item.self.global_position = Vector2D.from_x_and_y(spawn_position.x, spawn_position.y);
+        update_item.self.spawned = true;
+      }
+
       // Update object
-      update_item.update_function(update_item.self, delta);
+      update_item.update_function(this, update_item.self, delta);
 
       // If object is player object, update camera position
       if (update_item.self.flags.IS_PLAYER) {
@@ -401,7 +465,7 @@ export class Core {
       }
 
       // Run custom render function
-      render_item.render_function(render_item.self, this._main_canvas.context, screen_position);
+      render_item.render_function(this, render_item.self, this._main_canvas.context, screen_position);
 
       // Render collision box if neccessary
       if (this.flags.RENDER_COLLISION_BOXES && render_item.self.collision_box) {
