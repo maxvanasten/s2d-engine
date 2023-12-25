@@ -219,6 +219,12 @@ export class Core {
     }
   }
 
+  /**
+   * @method _get_mouse_position
+   * @description Returns the mouse position.
+   * @memberof Core
+   * @returns {Vector2D} mouse_position
+   */
   _get_mouse_position = () => {
     const mouse_position = {
       x: 0,
@@ -252,6 +258,13 @@ export class Core {
     return screen_position;
   }
 
+  /**
+     * @method _screen_to_global
+     * @description Converts a screen position to a global position.
+     * @memberof Core
+     * @param {Vector2D} screen_position
+     * @returns {Vector2D} global_position
+     */
   _screen_to_global = (screen_position) => {
     const global_position = screen_position.add(this._camera_position);
     return global_position;
@@ -454,6 +467,13 @@ export class Core {
     })
   }
 
+  /**
+   * @method _get_spawn_position
+   * @memberof Core
+   * @description Returns a random position in the list of tiles with identifier 'tile_identifier'.
+   * @param {string} tile_identifier 
+   * @returns {Vector2D} spawn_position
+   */
   _get_spawn_position = (tile_identifier) => {
     const tilemap_manager = this._get_object_by_identifier("INTERNAL_tilemap_manager");
     const tiles = tilemap_manager.get_tiles(tilemap_manager, tile_identifier);
@@ -467,18 +487,9 @@ export class Core {
       const tile = tiles[Math.floor(Math.random() * tiles.length)];
       spawn_position = tile.global_position;
     }
+
+    spawn_position = Vector2D.from_x_and_y(spawn_position.x, spawn_position.y);
     return spawn_position;
-  }
-
-  _is_colliding = (cbox_1, cbox_2) => {
-    console.log("Checking collision:");
-    console.log(`cbox_1: ${cbox_1.x}, ${cbox_1.y}, ${cbox_1.width}, ${cbox_1.height}`);
-    console.log(`cbox_2: ${cbox_2.x}, ${cbox_2.y}, ${cbox_2.width}, ${cbox_2.height}`);
-
-    return (cbox_1.x - cbox_1.width / 2 < cbox_2.x + cbox_2.width / 2 &&
-      cbox_1.x + cbox_1.width / 2 > cbox_2.x - cbox_2.width / 2 &&
-      cbox_1.y - cbox_1.height / 2 < cbox_2.y + cbox_2.height / 2 &&
-      cbox_1.y + cbox_1.height / 2 > cbox_2.y - cbox_2.height / 2);
   }
 
   /**
