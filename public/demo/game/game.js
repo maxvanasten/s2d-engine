@@ -23,17 +23,46 @@ const game = {
       bounding_box: { x: 0, y: 0, width: 100, height: 100 },
       collision_box: { x: -50, y: -50, width: 100, height: 100 },
       init: (core, self) => {
-        self.collision_box.width = 75;
-        self.collision_box.height = 75;
+        self.collision_box.width = 50;
+        self.collision_box.height = 50;
         self.collision_box.x = -self.collision_box.width / 2;
         self.collision_box.y = -self.collision_box.height / 2;
 
         self.movement_vector = Vector2D.ZERO();
         self.speed = 300;
+
+        self.firerate = 0.1;
+        self.shot_timer = 0;
+
+        self.max_health = 100;
+        self.health = self.max_health;
       },
       render: (core, self, context, position) => {
+        context.fillStyle = "red";
+        context.fillRect(position.x - 50, position.y - 50, self.max_health, 10);
+        context.fillStyle = "green";
+        context.fillRect(position.x - 50, position.y - 50, self.health, 10);
       },
       update: (core, self, delta) => {
+        if (self.health <= 0) {
+          alert("You died! Restarting game...");
+          // Reset game
+          core._get_objects_by_group("zombie").forEach((zombie) => {
+            core._destroy_object(zombie.identifier);
+          });
+          core._get_objects_by_group("bullet").forEach((bullet) => {
+            core._destroy_object(bullet.identifier);
+          });
+          self.health = self.max_health;
+          const spawn_position = core._get_spawn_position(self.spawn_tile);
+          self.global_position = Vector2D.from_x_and_y(spawn_position.x, spawn_position.y);
+
+          const wave_manager = core._get_object_by_identifier("wave_manager")
+          wave_manager.wave = 0;
+          wave_manager.wave_timer = wave_manager.wave_cooldown;
+          return;
+        }
+
         self.movement_vector = self.movement_vector.normalize()
         self.movement_vector = self.movement_vector.scale(self.speed * delta);
         self.global_position = self.global_position.add(self.movement_vector);
@@ -42,27 +71,44 @@ const game = {
 
       actions: [
         {
+          "type": "keyboard",
           "key": "w",
           "while_key_down": (core, self) => {
             self.movement_vector = self.movement_vector.add(Vector2D.UP());
           }
         },
         {
+          "type": "keyboard",
           "key": "a",
           "while_key_down": (core, self) => {
             self.movement_vector = self.movement_vector.add(Vector2D.LEFT());
           }
         },
         {
+          "type": "keyboard",
           "key": "s",
           "while_key_down": (core, self) => {
             self.movement_vector = self.movement_vector.add(Vector2D.DOWN());
           }
         },
         {
+          "type": "keyboard",
           "key": "d",
           "while_key_down": (core, self) => {
             self.movement_vector = self.movement_vector.add(Vector2D.RIGHT());
+          }
+        },
+        {
+          "type": "mouse",
+          "button": "left",
+          "on_click": (core, self) => {
+            self.shot_timer -= core._delta_time;
+            if (self.shot_timer > 0) return;
+            self.shot_timer = self.firerate;
+            const mouse_position = core._get_mouse_position();
+            const mouse_position_global = core._screen_to_global(mouse_position);
+            const direction = mouse_position_global.subtract(self.global_position).normalize();
+            core._spawn_object(create_bullet(self.global_position, direction));
           }
         }
       ]
@@ -94,13 +140,20 @@ const game = {
       flags: ["ALWAYS_UPDATE"],
       init: (core, self) => {
         self.wave = 0;
+        self.wave_timer = 0;
+        self.wave_cooldown = 2;
       },
       update: (core, self, delta) => {
         const zombie_count = core._get_objects_by_group("zombie").length;
         if (zombie_count == 0) {
-          self.wave++;
-          for (let i = 0; i < self.wave; i++) {
-            core._spawn_object(create_zombie(i));
+          if (self.wave_timer <= 0) {
+            self.wave_timer = self.wave_cooldown;
+            self.wave++;
+            for (let i = 0; i < self.wave; i++) {
+              core._spawn_object(create_zombie(i));
+            }
+          } else {
+            self.wave_timer -= delta;
           }
         }
       }
@@ -181,6 +234,23 @@ const game = {
         tileset_height: 16,
         tileset_columns: 1,
         tileset_rows: 1
+      },
+      {
+        identifier: "wall",
+        collision: true,
+        map_color: {
+          r: 255,
+          g: 0,
+          b: 255,
+          a: 255
+        },
+        tileset_path: "game/assets/tilesets/wall.svg",
+        tile_width: 16,
+        tile_height: 16,
+        tileset_width: 16,
+        tileset_height: 16,
+        tileset_columns: 1,
+        tileset_rows: 1
       }
     ]
   },
@@ -201,23 +271,96 @@ const create_zombie = (identifier) => {
       render_height: 50
     },
     init: (core, self) => {
-      self.speed = Math.random() * 200 + 100;
+      self.speed = Math.random() * 100 + 100;
+      self.max_health = 100;
+      self.health = self.max_health;
+
+      self.attack_timer = 0;
+      self.attack_cooldown = 1;
+
+      self.attack_damage = 25;
     },
     update: (core, self, delta) => {
+      self.attack_timer -= delta;
+      if (self.attack_timer <= 0) {
+        self.attack_timer = 0;
+      }
+
+      if (self.health <= 0) {
+        core._destroy_object(self.identifier);
+      }
+
       const player = core._get_object_by_identifier("player");
       const player_position = player.global_position;
       const zombie_position = self.global_position;
 
       const distance = self.global_position.distance(player_position);
 
+      if (distance < 50) {
+        if (self.attack_timer == 0) {
+          player.health -= self.attack_damage;
+          self.attack_timer = self.attack_cooldown;
+        }
+      }
+
       const movement_vector = player_position.subtract(zombie_position);
       self.global_position = self.global_position.add(movement_vector.normalize().scale(self.speed * delta));
+    },
+    render: (core, self, context, position) => {
+      context.fillStyle = "red";
+      context.fillRect(position.x - 50, position.y - 50, self.max_health, 10);
+      context.fillStyle = "green";
+      context.fillRect(position.x - 50, position.y - 50, self.health, 10);
+    }
+  }
+}
 
-      if (distance < 50) {
+const create_bullet = (position, direction) => {
+  return {
+    identifier: `bullet_${generateRandomId()}`,
+    group: "bullet",
+    flags: ["ALWAYS_UPDATE"],
+    global_position: { x: position.x, y: position.y },
+    sprite: {
+      image_path: "game/assets/bullet.svg",
+      source_width: 16,
+      source_height: 16,
+      render_width: 10,
+      render_height: 10
+    },
+    init: (core, self) => {
+      self.speed = 1000;
+      self.lifespan = 100;
+
+      self.sprite_angle = direction.angle();
+    },
+    update: (core, self, delta) => {
+      self.lifespan--;
+      if (self.lifespan <= 0) {
         core._destroy_object(self.identifier);
       }
+      self.global_position = self.global_position.add(direction.scale(self.speed * delta));
+
+      const zombies = core._get_objects_by_group("zombie");
+      zombies.forEach((zombie) => {
+        if (self.global_position.distance(zombie.global_position) < 50) {
+          zombie.health -= 10;
+          core._destroy_object(self.identifier);
+        }
+      })
     },
   }
 }
+
+const generateRandomId = () => {
+  const characters = 'abcdefghijklmnopqrstuvwxyz';
+  let id = '';
+  for (let i = 0; i < 6; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    id += characters[randomIndex];
+  }
+  return id;
+}
+
 
 export default game;

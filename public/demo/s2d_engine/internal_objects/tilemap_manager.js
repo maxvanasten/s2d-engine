@@ -65,10 +65,12 @@ tilemap_manager.get_tiles = (self, identifier) => {
   let tiles = [];
   self.map.forEach((map_tile) => {
     if (map_tile.tileset.identifier == identifier) {
+      const tile_width = map_tile.tileset.tile_width * self.tilemap.scale;
+      const tile_height = map_tile.tileset.tile_height * self.tilemap.scale;
       const tile = {
         global_position: {
-          x: map_tile.x * self.tilemap.tile_width * self.tilemap.scale,
-          y: map_tile.y * self.tilemap.tile_height * self.tilemap.scale
+          x: map_tile.x * tile_width + (tile_width / 2),
+          y: map_tile.y * tile_height + (tile_height / 2)
         },
       }
       tiles.push(tile);

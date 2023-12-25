@@ -183,9 +183,20 @@ export class Core {
       raw_object.actions.forEach((action) => {
         const action_object = {
           self: parsed_object,
-          key: action.key,
-          while_key_down: action.while_key_down
+          type: action.type,
         }
+
+        switch (action.type) {
+          case "keyboard":
+            action_object.key = action.key;
+            action_object.while_key_down = action.while_key_down;
+            break;
+          case "mouse":
+            action_object.button = action.button;
+            action_object.on_click = action.on_click;
+            break;
+        }
+
         input_manager.actions.push(action_object);
       })
     }
@@ -209,6 +220,23 @@ export class Core {
   }
 
   /**
+   * @method _get_mouse_position
+   * @description Returns the mouse position.
+   * @memberof Core
+   * @returns {Vector2D} mouse_position
+   */
+  _get_mouse_position = () => {
+    const mouse_position = {
+      x: 0,
+      y: 0
+    }
+    const input_manager = this._get_object_by_identifier("INTERNAL_input_manager");
+    mouse_position.x = input_manager.mouse.x;
+    mouse_position.y = input_manager.mouse.y;
+    return Vector2D.from_x_and_y(mouse_position.x, mouse_position.y);
+  }
+
+  /**
    * @method _update_camera_position
    * @description Updates the camera position to the player object position.
    * @memberof Core
@@ -228,6 +256,18 @@ export class Core {
   _global_to_screen = (global_position) => {
     const screen_position = global_position.subtract(this._camera_position);
     return screen_position;
+  }
+
+  /**
+     * @method _screen_to_global
+     * @description Converts a screen position to a global position.
+     * @memberof Core
+     * @param {Vector2D} screen_position
+     * @returns {Vector2D} global_position
+     */
+  _screen_to_global = (screen_position) => {
+    const global_position = screen_position.add(this._camera_position);
+    return global_position;
   }
 
   /**
@@ -409,18 +449,7 @@ export class Core {
 
       // Check if object has a spawn tile and if so, handle it
       if (update_item.self.spawn_tile && !update_item.self.spawned) {
-        const tilemap_manager = this._get_object_by_identifier("INTERNAL_tilemap_manager");
-        const tiles = tilemap_manager.get_tiles(tilemap_manager, update_item.self.spawn_tile);
-        let spawn_position = {
-          x: 0,
-          y: 0
-        }
-        if (!tiles) {
-          console.warn(`[s2d-engine: _update_objects] Spawn tile '${update_item.self.spawn_tile}' not found!`);
-        } else {
-          const tile = tiles[Math.floor(Math.random() * tiles.length)];
-          spawn_position = tile.global_position;
-        }
+        const spawn_position = this._get_spawn_position(update_item.self.spawn_tile);
         update_item.self.global_position = Vector2D.from_x_and_y(spawn_position.x, spawn_position.y);
         update_item.self.spawned = true;
       }
@@ -436,6 +465,31 @@ export class Core {
       // Keep track of the amount of updated objects this frame
       this._updated_objects_count++;
     })
+  }
+
+  /**
+   * @method _get_spawn_position
+   * @memberof Core
+   * @description Returns a random position in the list of tiles with identifier 'tile_identifier'.
+   * @param {string} tile_identifier 
+   * @returns {Vector2D} spawn_position
+   */
+  _get_spawn_position = (tile_identifier) => {
+    const tilemap_manager = this._get_object_by_identifier("INTERNAL_tilemap_manager");
+    const tiles = tilemap_manager.get_tiles(tilemap_manager, tile_identifier);
+    let spawn_position = {
+      x: 0,
+      y: 0
+    }
+    if (!tiles) {
+      console.warn(`[s2d-engine: _update_objects] Spawn tile '${tile_identifier}' not found!`);
+    } else {
+      const tile = tiles[Math.floor(Math.random() * tiles.length)];
+      spawn_position = tile.global_position;
+    }
+
+    spawn_position = Vector2D.from_x_and_y(spawn_position.x, spawn_position.y);
+    return spawn_position;
   }
 
   /**
@@ -461,7 +515,21 @@ export class Core {
       if (render_item.self.flags.USE_SPRITE && render_item.self.sprite.ready) {
         const sprite = render_item.self.sprite;
         const sprite_position = screen_position.subtract(Vector2D.from_x_and_y(sprite.render_width / 2, sprite.render_height / 2));
-        this._main_canvas.context.drawImage(sprite.image, sprite_position.x, sprite_position.y, sprite.render_width, sprite.render_height);
+
+        // If object specifies sprite angle, rotate sprite
+        // if (render_item.self.sprite.angle) {
+        let angle = 0;
+
+        if (render_item.self.sprite_angle) angle = render_item.self.sprite_angle;
+
+        this._main_canvas.context.save();
+        this._main_canvas.context.translate(screen_position.x, screen_position.y);
+        this._main_canvas.context.rotate(angle);
+        this._main_canvas.context.drawImage(sprite.image, -sprite.render_width / 2, -sprite.render_height / 2, sprite.render_width, sprite.render_height);
+        this._main_canvas.context.restore();
+        // } else
+
+        // this._main_canvas.context.drawImage(sprite.image, sprite_position.x, sprite_position.y, sprite.render_width, sprite.render_height);
       }
 
       // Run custom render function

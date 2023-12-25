@@ -122,6 +122,10 @@ export class Vector2D {
     return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
   }
 
+  angle = () => {
+    return Math.atan2(this.y, this.x);
+  }
+
   /**
    * @static ZERO
    * @memberof Vector2D
