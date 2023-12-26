@@ -35,7 +35,7 @@ export class Core {
     };
 
     this.flags = {
-      RENDER_COLLISION_BOXES: true
+      RENDER_COLLISION_BOXES: false
     }
 
     this._objects = [];
@@ -268,6 +268,10 @@ export class Core {
   _screen_to_global = (screen_position) => {
     const global_position = screen_position.add(this._camera_position);
     return global_position;
+  }
+
+  _update_ui = () => {
+
   }
 
   /**

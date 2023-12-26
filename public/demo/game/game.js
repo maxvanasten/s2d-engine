@@ -3,7 +3,8 @@ import { Vector2D } from "../s2d_engine/utils/vectors.js";
 const game = {
   internal_objects: [
     "input_manager",
-    "tilemap_manager"
+    "tilemap_manager",
+    "ui_manager"
   ],
 
   objects: [
@@ -36,14 +37,17 @@ const game = {
 
         self.max_health = 100;
         self.health = self.max_health;
+
+        self.survival_time = 0;
       },
       render: (core, self, context, position) => {
-        context.fillStyle = "red";
-        context.fillRect(position.x - 50, position.y - 50, self.max_health, 10);
+        context.fillStyle = "#242424";
+        context.fillRect(position.x - (self.max_health + 10), 50, (self.max_health * 2) + 20, 50);
         context.fillStyle = "green";
-        context.fillRect(position.x - 50, position.y - 50, self.health, 10);
+        context.fillRect(position.x - (self.max_health), 60, self.health * 2, 30);
       },
       update: (core, self, delta) => {
+        const wave_manager = core._get_object_by_identifier("wave_manager")
         if (self.health <= 0) {
           alert("You died! Restarting game...");
           // Reset game
@@ -57,12 +61,23 @@ const game = {
           const spawn_position = core._get_spawn_position(self.spawn_tile);
           self.global_position = Vector2D.from_x_and_y(spawn_position.x, spawn_position.y);
 
-          const wave_manager = core._get_object_by_identifier("wave_manager")
           wave_manager.wave = 0;
           wave_manager.wave_timer = wave_manager.wave_cooldown;
+
+          self.survival_time = 0;
           return;
         }
 
+        // Check ui elements
+        // if (document.getElementById("s2d-health").innerHTML != self.health) document.getElementById("s2d-health").innerHTML = self.health;
+        // if (document.getElementById("s2d-wave").innerHTML != wave_manager.wave) document.getElementById("s2d-wave").innerHTML = wave_manager.wave;
+        // if (document.getElementById("s2d-time").innerHTML != self.survival_time) document.getElementById("s2d-time").innerHTML = self.survival_time.toFixed(2);
+
+        document.getElementById("s2d-health").innerHTML = self.health;
+        document.getElementById("s2d-wave").innerHTML = wave_manager.wave;
+        document.getElementById("s2d-time").innerHTML = self.survival_time.toFixed(2);
+
+        self.survival_time += delta;
         self.movement_vector = self.movement_vector.normalize()
         self.movement_vector = self.movement_vector.scale(self.speed * delta);
         self.global_position = self.global_position.add(self.movement_vector);
@@ -145,6 +160,9 @@ const game = {
       },
       update: (core, self, delta) => {
         const zombie_count = core._get_objects_by_group("zombie").length;
+
+        document.getElementById("s2d-zombies").innerHTML = zombie_count;
+
         if (zombie_count == 0) {
           if (self.wave_timer <= 0) {
             self.wave_timer = self.wave_cooldown;
@@ -279,6 +297,9 @@ const create_zombie = (identifier) => {
       self.attack_cooldown = 1;
 
       self.attack_damage = 25;
+
+      self.ui_width = 80;
+      self.ui_height = 20;
     },
     update: (core, self, delta) => {
       self.attack_timer -= delta;
@@ -307,10 +328,10 @@ const create_zombie = (identifier) => {
       self.global_position = self.global_position.add(movement_vector.normalize().scale(self.speed * delta));
     },
     render: (core, self, context, position) => {
-      context.fillStyle = "red";
-      context.fillRect(position.x - 50, position.y - 50, self.max_health, 10);
+      context.fillStyle = "#242424";
+      context.fillRect(position.x - self.ui_width / 2, position.y - self.ui_width / 2, self.ui_width, self.ui_height);
       context.fillStyle = "green";
-      context.fillRect(position.x - 50, position.y - 50, self.health, 10);
+      context.fillRect((position.x - self.ui_width / 2) + 5, (position.y - self.ui_width / 2) + 5, self.health * ((self.ui_width - 10) * 0.01), self.ui_height - 10);
     }
   }
 }

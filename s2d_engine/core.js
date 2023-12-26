@@ -35,7 +35,7 @@ export class Core {
     };
 
     this.flags = {
-      RENDER_COLLISION_BOXES: true
+      RENDER_COLLISION_BOXES: false
     }
 
     this._objects = [];
