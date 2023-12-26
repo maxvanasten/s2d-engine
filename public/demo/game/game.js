@@ -80,7 +80,12 @@ const game = {
         self.survival_time += delta;
         self.movement_vector = self.movement_vector.normalize()
         self.movement_vector = self.movement_vector.scale(self.speed * delta);
-        self.global_position = self.global_position.add(self.movement_vector);
+        let next_position = self.global_position.add(self.movement_vector);
+
+        const tilemap_manager = core._get_object_by_identifier("INTERNAL_tilemap_manager");
+        const collision = tilemap_manager.is_colliding(tilemap_manager, next_position, self.collision_box.height);
+
+        if (!collision) self.global_position = next_position;
         self.movement_vector = Vector2D.ZERO();
       },
 
@@ -255,7 +260,7 @@ const game = {
       },
       {
         identifier: "wall",
-        collision: true,
+        is_collider: true,
         map_color: {
           r: 255,
           g: 0,
@@ -265,10 +270,10 @@ const game = {
         tileset_path: "game/assets/tilesets/wall.svg",
         tile_width: 16,
         tile_height: 16,
-        tileset_width: 16,
-        tileset_height: 16,
-        tileset_columns: 1,
-        tileset_rows: 1
+        tileset_width: 48,
+        tileset_height: 48,
+        tileset_columns: 3,
+        tileset_rows: 3
       }
     ]
   },

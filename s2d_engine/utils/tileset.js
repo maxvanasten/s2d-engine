@@ -65,6 +65,10 @@ export class Tileset {
       tileset.loaded = true;
     }
 
+    if (raw_tileset.is_collider) {
+      tileset.is_collider = raw_tileset.is_collider;
+    }
+
     tileset.tile_width = raw_tileset.tile_width;
     tileset.tile_height = raw_tileset.tile_height;
 

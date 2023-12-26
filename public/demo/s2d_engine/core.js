@@ -270,10 +270,6 @@ export class Core {
     return global_position;
   }
 
-  _update_ui = () => {
-
-  }
-
   /**
    * @method _loop
    * @memberof Core

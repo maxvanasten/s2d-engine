@@ -59,6 +59,24 @@ tilemap_manager.init = (core, self, raw_tilemap) => {
   self.tilemap = Tilemap.from_raw(raw_tilemap);
 }
 
+tilemap_manager.is_colliding = (self, position, height) => {
+  if (!self.ready) return false;
+  if (!self.map) return false;
+  let result = false;
+  self.map.forEach((map_tile) => {
+    if (map_tile.tileset.is_collider) {
+      const tile_width = map_tile.tileset.tile_width * self.tilemap.scale;
+      const tile_height = map_tile.tileset.tile_height * self.tilemap.scale;
+      const tile_x = map_tile.x * tile_width;
+      const tile_y = map_tile.y * tile_height;
+      if (position.x >= tile_x && position.x <= tile_x + tile_width && position.y + height / 2 >= tile_y && position.y <= tile_y + tile_height) {
+        result = true;
+      }
+    }
+  })
+  return result;
+}
+
 tilemap_manager.get_tiles = (self, identifier) => {
   if (!self.ready) return false;
 
