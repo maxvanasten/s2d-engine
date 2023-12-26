@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "copy_engine_files_to_public": "cp -r ./s2d_engine ./public/demo/",
-    "generate_documentation": "jsdoc ./s2d_engine -r --destination ./public/documentation --readme ./README.md",
+    "generate_documentation": "jsdoc -c jsdoc.json ./s2d_engine -r --destination ./public/documentation --readme ./README.md",
     "dev": "npm run copy_engine_files_to_public && npm run generate_documentation && PORT=3000 node server.js"
   },
   "repository": {
@@ -23,6 +23,7 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
+    "better-docs": "^2.7.3",
     "jsdoc": "^4.0.2",
     "nodemon": "^3.0.2"
   }

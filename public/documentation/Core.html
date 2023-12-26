@@ -1,25 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>JSDoc: Class: Core</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Core</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
 </head>
 
-<body>
 
-<div id="main">
 
-    <h1 class="page-title">Class: Core</h1>
-
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
     
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Core.html">Core</a></li><li><a href="GameObject.html">GameObject</a></li><li><a href="Tilemap.html">Tilemap</a></li><li><a href="Tileset.html">Tileset</a></li><li><a href="Vector2D.html">Vector2D</a></li><li><a href="Vector4D.html">Vector4D</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Class</p>
+                    <h1>Core</h1>
+                </header>
+                
 
 
 
@@ -37,20 +94,33 @@
     <div class="container-overview">
     
         
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
 
+
+    
+    <h4 class="name" id="Core">
+        <a class="href-link" href="#Core">#</a>
+        
+        <span class="code-name">
+            
+                new Core<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
     
 
     
-    <h4 class="name" id="Core"><span class="type-signature"></span>new Core<span class="signature">()</span><span class="type-signature"></span></h4>
     
-
+    <div class="description">
+        Core class for the engine.
+    </div>
     
-
-
-
-<div class="description">
-    Core class for the engine.
-</div>
 
 
 
@@ -67,330 +137,307 @@
     <h5 class="subsection-title">Properties:</h5>
 
     
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
 
-<table class="props">
-    <thead>
-    <tr>
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
         
-        <th>Name</th>
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>_main_canvas</code></td>
+    
+
+    <td class="type">
+    
         
+<code class="param-type">Object</code>
 
-        <th>Type</th>
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last">Main canvas object.</td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>element</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">HTMLCanvasElement</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last">Main canvas element.</td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>context</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">CanvasRenderingContext2D</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last">Main canvas context.</td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>fullscreen</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">boolean</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last">Main canvas fullscreen.</td>
+</tr>
+
+  
 
         
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>_objects</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">Array.&lt;<a href="GameObject.html">GameObject</a>></code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last">Objects array.</td>
+</tr>
 
         
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>_player_object_identifier</code></td>
     
 
-        <tr>
-            
-                <td class="name"><code>_main_canvas</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Main canvas object.
-                <h6>Properties</h6>
-
-<table class="props">
-    <thead>
-    <tr>
+    <td class="type">
+    
         
-        <th>Name</th>
-        
+<code class="param-type">string</code>
 
-        <th>Type</th>
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last">Identifier of the player object, is used for updating the camera position and determining wether or not objects will be updated and/or rendered.</td>
+</tr>
 
         
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>_camera_position</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type"><a href="Vector2D.html">Vector2D</a></code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last">Camera position.</td>
+</tr>
 
         
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>_camera_offset</code></td>
     
 
-        <tr>
-            
-                <td class="name"><code>element</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">HTMLCanvasElement</span>
+    <td class="type">
+    
+        
+<code class="param-type"><a href="Vector2D.html">Vector2D</a></code>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Main canvas element.</td>
-        </tr>
+    
+    </td>
 
     
 
-        <tr>
-            
-                <td class="name"><code>context</code></td>
-            
+    
 
-            <td class="type">
+    <td class="description last">Camera offset, used for manipulating the camera</td>
+</tr>
+
+        
             
-                
-<span class="param-type">CanvasRenderingContext2D</span>
+<tr class="deep-level-0">
+    
+        <td class="name"><code>_canvas_center</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type"><a href="Vector2D.html">Vector2D</a></code>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Main canvas context.</td>
-        </tr>
+    
+    </td>
 
     
 
-        <tr>
-            
-                <td class="name"><code>fullscreen</code></td>
-            
+    
 
-            <td class="type">
+    <td class="description last">Center of the canvas.</td>
+</tr>
+
+        
             
-                
-<span class="param-type">boolean</span>
+<tr class="deep-level-0">
+    
+        <td class="name"><code>_update_queue</code></td>
+    
 
+    <td class="type">
+    
+        
+<code class="param-type">Array.&lt;Object></code>
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Main canvas fullscreen.</td>
-        </tr>
 
     
-    </tbody>
-</table>
-
-            </td>
-        </tr>
+    </td>
 
     
 
-        <tr>
-            
-                <td class="name"><code>_objects</code></td>
-            
+    
 
-            <td class="type">
+    <td class="description last">Update queue.</td>
+</tr>
+
+        
             
-                
-<span class="param-type">Array.&lt;<a href="GameObject.html">GameObject</a>></span>
+<tr class="deep-level-0">
+    
+        <td class="name"><code>_render_queue</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">Array.&lt;Object></code>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Objects array.</td>
-        </tr>
+    
+    </td>
 
     
 
-        <tr>
-            
-                <td class="name"><code>_player_object_identifier</code></td>
-            
+    
 
-            <td class="type">
+    <td class="description last">Render queue.</td>
+</tr>
+
+        
             
-                
-<span class="param-type">string</span>
+<tr class="deep-level-0">
+    
+        <td class="name"><code>_out_of_focus</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">boolean</code>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Identifier of the player object, is used for updating the camera position and determining wether or not objects will be updated and/or rendered.</td>
-        </tr>
+    
+    </td>
 
     
 
-        <tr>
-            
-                <td class="name"><code>_camera_position</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector2D.html">Vector2D</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Camera position.</td>
-        </tr>
-
     
 
-        <tr>
-            
-                <td class="name"><code>_camera_offset</code></td>
-            
+    <td class="description last">Whether or not the game is out of focus.</td>
+</tr>
 
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector2D.html">Vector2D</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Camera offset, used for manipulating the camera</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>_canvas_center</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector2D.html">Vector2D</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Center of the canvas.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>_update_queue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Object></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Update queue.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>_render_queue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Object></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Render queue.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>_out_of_focus</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Whether or not the game is out of focus.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -419,18 +466,19 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line8">line 8</a>
-    </li></ul></dd>
     
 
     
 
     
 
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line8">line 8</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -453,9 +501,15 @@
 
 
 
+
+
+                    </div>
+                </div>
+            </div>
+        
     
     </div>
-
+    
     
 
     
@@ -471,24 +525,35 @@
     
 
     
-        <h3 class="subsection-title">Methods</h3>
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
 
+
+    
+    <h4 class="name" id="._add_to_render_queue">
+        <a class="href-link" href="#._add_to_render_queue">#</a>
         
             
-
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _add_to_render_queue<span class="signature">(object, render_function)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
     
 
     
-    <h4 class="name" id="._add_to_render_queue"><span class="type-signature">(static) </span>_add_to_render_queue<span class="signature">(object, render_function)</span><span class="type-signature"></span></h4>
     
-
+    <div class="description">
+        Adds an object to the render queue.
+    </div>
     
-
-
-
-<div class="description">
-    Adds an object to the render queue.
-</div>
 
 
 
@@ -500,75 +565,79 @@
 
     <h5>Parameters:</h5>
     
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="table-container">
+    <table class="params table">
+        <thead>
         <tr>
             
-                <td class="name"><code>object</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
-            
-                
-<span class="param-type"><a href="GameObject.html">GameObject</a></span>
-
-
-            
-            </td>
+            <th>Type</th>
 
             
 
             
 
-            <td class="description last">the object to add to the render queue</td>
+            <th class="last">Description</th>
         </tr>
+        </thead>
 
-    
-
-        <tr>
-            
-                <td class="name"><code>render_function</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
+        <tbody>
+        
 
             
-            </td>
+<tr class="deep-level-0">
+  
+      <td class="name"><code>object</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="GameObject.html">GameObject</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">the object to add to the render queue</td>
+</tr>
+
+
+        
 
             
+<tr class="deep-level-0">
+  
+      <td class="name"><code>render_function</code></td>
+  
 
-            
+  <td class="type">
+  
+      
+<code class="param-type">function</code>
 
-            <td class="description last">The function to execute when object is rendered</td>
-        </tr>
 
-    
-    </tbody>
-</table>
+  
+  </td>
 
+  
+
+  
+
+  <td class="description last">The function to execute when object is rendered</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -599,18 +668,19 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line417">line 417</a>
-    </li></ul></dd>
     
 
     
 
     
 
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line417">line 417</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -633,22 +703,34 @@
 
 
 
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="._add_to_update_queue">
+        <a class="href-link" href="#._add_to_update_queue">#</a>
         
             
-
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _add_to_update_queue<span class="signature">(object, update_function)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
     
 
     
-    <h4 class="name" id="._add_to_update_queue"><span class="type-signature">(static) </span>_add_to_update_queue<span class="signature">(object, update_function)</span><span class="type-signature"></span></h4>
     
-
+    <div class="description">
+        Adds an object to the update queue.
+    </div>
     
-
-
-
-<div class="description">
-    Adds an object to the update queue.
-</div>
 
 
 
@@ -660,75 +742,79 @@
 
     <h5>Parameters:</h5>
     
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="table-container">
+    <table class="params table">
+        <thead>
         <tr>
             
-                <td class="name"><code>object</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
-            
-                
-<span class="param-type"><a href="GameObject.html">GameObject</a></span>
-
-
-            
-            </td>
+            <th>Type</th>
 
             
 
             
 
-            <td class="description last">the object to add to the update queue</td>
+            <th class="last">Description</th>
         </tr>
+        </thead>
 
-    
-
-        <tr>
-            
-                <td class="name"><code>update_function</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
+        <tbody>
+        
 
             
-            </td>
+<tr class="deep-level-0">
+  
+      <td class="name"><code>object</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="GameObject.html">GameObject</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">the object to add to the update queue</td>
+</tr>
+
+
+        
 
             
+<tr class="deep-level-0">
+  
+      <td class="name"><code>update_function</code></td>
+  
 
-            
+  <td class="type">
+  
+      
+<code class="param-type">function</code>
 
-            <td class="description last">The function to execute when object is updated</td>
-        </tr>
 
-    
-    </tbody>
-</table>
+  
+  </td>
 
+  
+
+  
+
+  <td class="description last">The function to execute when object is updated</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -759,18 +845,19 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line402">line 402</a>
-    </li></ul></dd>
     
 
     
 
     
 
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line402">line 402</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -793,22 +880,34 @@
 
 
 
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="._connect_canvas">
+        <a class="href-link" href="#._connect_canvas">#</a>
         
             
-
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _connect_canvas<span class="signature">(id, fullscreen)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
     
 
     
-    <h4 class="name" id="._connect_canvas"><span class="type-signature">(static) </span>_connect_canvas<span class="signature">(id, fullscreen)</span><span class="type-signature"></span></h4>
     
-
+    <div class="description">
+        Connects the canvas to the engine.
+    </div>
     
-
-
-
-<div class="description">
-    Connects the canvas to the engine.
-</div>
 
 
 
@@ -820,74 +919,179 @@
 
     <h5>Parameters:</h5>
     
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="table-container">
+    <table class="params table">
+        <thead>
         <tr>
             
-                <td class="name"><code>id</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
+            <th>Type</th>
 
             
 
             
 
-            <td class="description last"></td>
+            <th class="last">Description</th>
         </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>id</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>fullscreen</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">boolean</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
 
     
 
-        <tr>
-            
-                <td class="name"><code>fullscreen</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+    
 
     
-    </tbody>
-</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line207">line 207</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="._get_mouse_position">
+        <a class="href-link" href="#._get_mouse_position">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _get_mouse_position<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Vector2D.html">Vector2D</a>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Returns the mouse position.
+    </div>
+    
+
+
+
+
+
+
+
 
 
 
@@ -919,18 +1123,19 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line207">line 207</a>
-    </li></ul></dd>
     
 
     
 
     
 
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line222">line 222</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -951,134 +1156,61 @@
 
 
 
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>mouse_position</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type"><a href="Vector2D.html">Vector2D</a></code>
 
 
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="._get_object_by_identifier">
+        <a class="href-link" href="#._get_object_by_identifier">#</a>
         
             
-
-    
-
-    
-    <h4 class="name" id="._get_mouse_position"><span class="type-signature">(static) </span>_get_mouse_position<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Vector2D.html">Vector2D</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Returns the mouse position.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line222">line 222</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    mouse_position
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Vector2D.html">Vector2D</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
+                <span class='tag'>static</span>
             
-
+        
+        <span class="code-name">
+            
+                _get_object_by_identifier<span class="signature">(identifier)</span><span class="type-signature"> &rarr; {game_object}</span>
+            
+        </span>
+    </h4>
     
 
     
-    <h4 class="name" id="._get_object_by_identifier"><span class="type-signature">(static) </span>_get_object_by_identifier<span class="signature">(identifier)</span><span class="type-signature"> &rarr; {game_object}</span></h4>
     
-
+    <div class="description">
+        Returns an object by its identifier.
+    </div>
     
-
-
-
-<div class="description">
-    Returns an object by its identifier.
-</div>
 
 
 
@@ -1090,52 +1222,54 @@
 
     <h5>Parameters:</h5>
     
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="table-container">
+    <table class="params table">
+        <thead>
         <tr>
             
-                <td class="name"><code>identifier</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
+            <th>Type</th>
 
             
 
             
 
-            <td class="description last"></td>
+            <th class="last">Description</th>
         </tr>
+        </thead>
 
-    
-    </tbody>
-</table>
+        <tbody>
+        
 
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>identifier</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1166,18 +1300,19 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line348">line 348</a>
-    </li></ul></dd>
     
 
     
 
     
 
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line348">line 348</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -1195,49 +1330,64 @@
 
 
 
-<h5>Returns:</h5>
 
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>object</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
         
-<div class="param-desc">
-    object
+<code class="param-type">game_object</code>
+
+
+    </div>
+    
 </div>
 
+                
+        </div>
+    </div>
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">game_object</span>
 
 
-    </dd>
-</dl>
+</div>
+            
+                <div class="member">
+
 
     
-
-
-
-
-
+    <h4 class="name" id="._get_spawn_position">
+        <a class="href-link" href="#._get_spawn_position">#</a>
         
             
-
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _get_spawn_position<span class="signature">(tile_identifier)</span><span class="type-signature"> &rarr; {<a href="Vector2D.html">Vector2D</a>}</span>
+            
+        </span>
+    </h4>
     
 
     
-    <h4 class="name" id="._get_spawn_position"><span class="type-signature">(static) </span>_get_spawn_position<span class="signature">(tile_identifier)</span><span class="type-signature"> &rarr; {<a href="Vector2D.html">Vector2D</a>}</span></h4>
     
-
+    <div class="description">
+        Returns a random position in the list of tiles with identifier 'tile_identifier'.
+    </div>
     
-
-
-
-<div class="description">
-    Returns a random position in the list of tiles with identifier 'tile_identifier'.
-</div>
 
 
 
@@ -1249,52 +1399,54 @@
 
     <h5>Parameters:</h5>
     
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="table-container">
+    <table class="params table">
+        <thead>
         <tr>
             
-                <td class="name"><code>tile_identifier</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
+            <th>Type</th>
 
             
 
             
 
-            <td class="description last"></td>
+            <th class="last">Description</th>
         </tr>
+        </thead>
 
-    
-    </tbody>
-</table>
+        <tbody>
+        
 
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>tile_identifier</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1325,18 +1477,19 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line470">line 470</a>
-    </li></ul></dd>
     
 
     
 
     
 
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line470">line 470</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -1354,49 +1507,64 @@
 
 
 
-<h5>Returns:</h5>
 
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>spawn_position</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
         
-<div class="param-desc">
-    spawn_position
+<code class="param-type"><a href="Vector2D.html">Vector2D</a></code>
+
+
+    </div>
+    
 </div>
 
+                
+        </div>
+    </div>
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Vector2D.html">Vector2D</a></span>
 
 
-    </dd>
-</dl>
+</div>
+            
+                <div class="member">
+
 
     
-
-
-
-
-
+    <h4 class="name" id="._global_to_screen">
+        <a class="href-link" href="#._global_to_screen">#</a>
         
             
-
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _global_to_screen<span class="signature">(global_position)</span><span class="type-signature"> &rarr; {<a href="Vector2D.html">Vector2D</a>}</span>
+            
+        </span>
+    </h4>
     
 
     
-    <h4 class="name" id="._global_to_screen"><span class="type-signature">(static) </span>_global_to_screen<span class="signature">(global_position)</span><span class="type-signature"> &rarr; {<a href="Vector2D.html">Vector2D</a>}</span></h4>
     
-
+    <div class="description">
+        Converts a global position to a screen position for rendering.
+    </div>
     
-
-
-
-<div class="description">
-    Converts a global position to a screen position for rendering.
-</div>
 
 
 
@@ -1408,52 +1576,54 @@
 
     <h5>Parameters:</h5>
     
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="table-container">
+    <table class="params table">
+        <thead>
         <tr>
             
-                <td class="name"><code>global_position</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector2D.html">Vector2D</a></span>
-
-
-            
-            </td>
+            <th>Type</th>
 
             
 
             
 
-            <td class="description last"></td>
+            <th class="last">Description</th>
         </tr>
+        </thead>
 
-    
-    </tbody>
-</table>
+        <tbody>
+        
 
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>global_position</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="Vector2D.html">Vector2D</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -1484,18 +1654,19 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line249">line 249</a>
-    </li></ul></dd>
     
 
     
 
     
 
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line249">line 249</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -1513,49 +1684,64 @@
 
 
 
-<h5>Returns:</h5>
 
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>screen_position</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
         
-<div class="param-desc">
-    screen_position
+<code class="param-type"><a href="Vector2D.html">Vector2D</a></code>
+
+
+    </div>
+    
 </div>
 
+                
+        </div>
+    </div>
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Vector2D.html">Vector2D</a></span>
 
 
-    </dd>
-</dl>
+</div>
+            
+                <div class="member">
+
 
     
-
-
-
-
-
+    <h4 class="name" id="._import_game">
+        <a class="href-link" href="#._import_game">#</a>
         
             
-
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _import_game<span class="signature">(game)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
     
 
     
-    <h4 class="name" id="._import_game"><span class="type-signature">(static) </span>_import_game<span class="signature">(game)</span><span class="type-signature"></span></h4>
     
-
+    <div class="description">
+        Imports objects, input events and ui connections from game.
+    </div>
     
-
-
-
-<div class="description">
-    Imports objects, input events and ui connections from game.
-</div>
 
 
 
@@ -1567,51 +1753,154 @@
 
     <h5>Parameters:</h5>
     
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="table-container">
+    <table class="params table">
+        <thead>
         <tr>
             
-                <td class="name"><code>game</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
+            <th>Type</th>
 
             
 
             
 
-            <td class="description last"></td>
+            <th class="last">Description</th>
         </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>game</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
 
     
-    </tbody>
-</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line54">line 54</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="._loop">
+        <a class="href-link" href="#._loop">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _loop<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Main loop of the engine. Is in charge of selecting objects to be updated and/or rendered
+    </div>
+    
+
+
+
+
+
+
+
 
 
 
@@ -1643,12 +1932,6 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line54">line 54</a>
-    </li></ul></dd>
     
 
     
@@ -1656,93 +1939,12 @@
     
 
     
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="._loop"><span class="type-signature">(static) </span>_loop<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Main loop of the engine. Is in charge of selecting objects to be updated and/or rendered
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line273">line 273</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line273">line 273</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -1765,22 +1967,34 @@
 
 
 
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="._parse_object">
+        <a class="href-link" href="#._parse_object">#</a>
         
             
-
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _parse_object<span class="signature">(raw_object)</span><span class="type-signature"> &rarr; {<a href="GameObject.html">GameObject</a>}</span>
+            
+        </span>
+    </h4>
     
 
     
-    <h4 class="name" id="._parse_object"><span class="type-signature">(static) </span>_parse_object<span class="signature">(raw_object)</span><span class="type-signature"> &rarr; {<a href="GameObject.html">GameObject</a>}</span></h4>
     
-
+    <div class="description">
+        Parses a raw object into a game object.
+    </div>
     
-
-
-
-<div class="description">
-    Parses a raw object into a game object.
-</div>
 
 
 
@@ -1792,51 +2006,179 @@
 
     <h5>Parameters:</h5>
     
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="table-container">
+    <table class="params table">
+        <thead>
         <tr>
             
-                <td class="name"><code>raw_object</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
+            <th>Type</th>
 
             
 
             
 
-            <td class="description last"></td>
+            <th class="last">Description</th>
         </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>raw_object</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
 
     
-    </tbody>
-</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line113">line 113</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>parsed_object</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type"><a href="GameObject.html">GameObject</a></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="._render_objects">
+        <a class="href-link" href="#._render_objects">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _render_objects<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Renders all objects in the render queue.
+    </div>
+    
+
+
+
+
+
+
+
 
 
 
@@ -1868,18 +2210,19 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line113">line 113</a>
-    </li></ul></dd>
     
 
     
 
     
 
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line495">line 495</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -1897,137 +2240,39 @@
 
 
 
-<h5>Returns:</h5>
 
-        
-<div class="param-desc">
-    parsed_object
+
+
+
+
+
 </div>
+            
+                <div class="member">
 
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="GameObject.html">GameObject</a></span>
-
-
-    </dd>
-</dl>
 
     
-
-
-
-
-
+    <h4 class="name" id="._screen_to_global">
+        <a class="href-link" href="#._screen_to_global">#</a>
         
             
-
-    
-
-    
-    <h4 class="name" id="._render_objects"><span class="type-signature">(static) </span>_render_objects<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Renders all objects in the render queue.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line495">line 495</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+                <span class='tag'>static</span>
             
-
+        
+        <span class="code-name">
+            
+                _screen_to_global<span class="signature">(screen_position)</span><span class="type-signature"> &rarr; {<a href="Vector2D.html">Vector2D</a>}</span>
+            
+        </span>
+    </h4>
     
 
     
-    <h4 class="name" id="._screen_to_global"><span class="type-signature">(static) </span>_screen_to_global<span class="signature">(screen_position)</span><span class="type-signature"> &rarr; {<a href="Vector2D.html">Vector2D</a>}</span></h4>
     
-
+    <div class="description">
+        Converts a screen position to a global position.
+    </div>
     
-
-
-
-<div class="description">
-    Converts a screen position to a global position.
-</div>
 
 
 
@@ -2039,52 +2284,54 @@
 
     <h5>Parameters:</h5>
     
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="table-container">
+    <table class="params table">
+        <thead>
         <tr>
             
-                <td class="name"><code>screen_position</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector2D.html">Vector2D</a></span>
-
-
-            
-            </td>
+            <th>Type</th>
 
             
 
             
 
-            <td class="description last"></td>
+            <th class="last">Description</th>
         </tr>
+        </thead>
 
-    
-    </tbody>
-</table>
+        <tbody>
+        
 
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>screen_position</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="Vector2D.html">Vector2D</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2115,18 +2362,19 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line261">line 261</a>
-    </li></ul></dd>
     
 
     
 
     
 
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line261">line 261</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -2144,49 +2392,64 @@
 
 
 
-<h5>Returns:</h5>
 
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>global_position</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
         
-<div class="param-desc">
-    global_position
+<code class="param-type"><a href="Vector2D.html">Vector2D</a></code>
+
+
+    </div>
+    
 </div>
 
+                
+        </div>
+    </div>
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Vector2D.html">Vector2D</a></span>
 
 
-    </dd>
-</dl>
+</div>
+            
+                <div class="member">
+
 
     
-
-
-
-
-
+    <h4 class="name" id="._spawn_object">
+        <a class="href-link" href="#._spawn_object">#</a>
         
             
-
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _spawn_object<span class="signature">(raw_object)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
     
 
     
-    <h4 class="name" id="._spawn_object"><span class="type-signature">(static) </span>_spawn_object<span class="signature">(raw_object)</span><span class="type-signature"></span></h4>
     
-
+    <div class="description">
+        Spawns a game object.
+    </div>
     
-
-
-
-<div class="description">
-    Spawns a game object.
-</div>
 
 
 
@@ -2198,52 +2461,54 @@
 
     <h5>Parameters:</h5>
     
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="table-container">
+    <table class="params table">
+        <thead>
         <tr>
             
-                <td class="name"><code>raw_object</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
+            <th>Type</th>
 
             
 
             
 
-            <td class="description last"></td>
+            <th class="last">Description</th>
         </tr>
+        </thead>
 
-    
-    </tbody>
-</table>
+        <tbody>
+        
 
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>raw_object</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2274,12 +2539,6 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line93">line 93</a>
-    </li></ul></dd>
     
 
     
@@ -2287,93 +2546,12 @@
     
 
     
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="._start_game"><span class="type-signature">(static) </span>_start_game<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Starts the game loop.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line385">line 385</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line93">line 93</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -2396,22 +2574,34 @@
 
 
 
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="._start_game">
+        <a class="href-link" href="#._start_game">#</a>
         
             
-
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _start_game<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
     
 
     
-    <h4 class="name" id="._update_camera_position"><span class="type-signature">(static) </span>_update_camera_position<span class="signature">()</span><span class="type-signature"></span></h4>
     
-
+    <div class="description">
+        Starts the game loop.
+    </div>
     
-
-
-
-<div class="description">
-    Updates the camera position to the player object position.
-</div>
 
 
 
@@ -2450,18 +2640,19 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line239">line 239</a>
-    </li></ul></dd>
     
 
     
 
     
 
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line385">line 385</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -2484,22 +2675,135 @@
 
 
 
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="._update_camera_position">
+        <a class="href-link" href="#._update_camera_position">#</a>
         
             
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _update_camera_position<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Updates the camera position to the player object position.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
 
     
 
     
-    <h4 class="name" id="._update_objects"><span class="type-signature">(static) </span>_update_objects<span class="signature">(delta)</span><span class="type-signature"></span></h4>
+
+    
+
     
 
     
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line239">line 239</a>
+            </span>
+        </p>
+    
+</dl>
 
 
-<div class="description">
-    Updates all objects in the update queue according to delta time.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="._update_objects">
+        <a class="href-link" href="#._update_objects">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                _update_objects<span class="signature">(delta)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Updates all objects in the update queue according to delta time.
+    </div>
+    
 
 
 
@@ -2511,52 +2815,54 @@
 
     <h5>Parameters:</h5>
     
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
+<div class="table-container">
+    <table class="params table">
+        <thead>
         <tr>
             
-                <td class="name"><code>delta</code></td>
+            <th>Name</th>
             
 
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
+            <th>Type</th>
 
             
 
             
 
-            <td class="description last"></td>
+            <th class="last">Description</th>
         </tr>
+        </thead>
 
-    
-    </tbody>
-</table>
+        <tbody>
+        
 
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>delta</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2587,18 +2893,19 @@
     
 
     
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core.js.html">core.js</a>, <a href="core.js.html#line432">line 432</a>
-    </li></ul></dd>
     
 
     
 
     
 
+    
+        <p class="tag-source">
+            <a href="core.js.html" class="button">View Source</a>
+            <span>
+                <a href="core.js.html">core.js</a>, <a href="core.js.html#line432">line 432</a>
+            </span>
+        </p>
     
 </dl>
 
@@ -2621,7 +2928,11 @@
 
 
 
-        
+
+</div>
+            
+            </div>
+        </div>
     
 
     
@@ -2634,19 +2945,26 @@
 
 
 
-</div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Core.html">Core</a></li><li><a href="GameObject.html">GameObject</a></li><li><a href="Tilemap.html">Tilemap</a></li><li><a href="Tileset.html">Tileset</a></li><li><a href="Vector2D.html">Vector2D</a></li><li><a href="Vector4D.html">Vector4D</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Dec 26 2023 05:04:05 GMT+0100 (Central European Standard Time)
-</footer>
-
-<script> prettyPrint(); </script>
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
 <script src="scripts/linenumber.js"> </script>
+
+
 </body>
 </html>
